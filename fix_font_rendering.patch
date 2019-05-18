@@ -1,0 +1,14 @@
+Author: Unrud <unrud@outlook.com>
+Description: use a safe texture size to avoid problems with some graphics drivers
+Last-Update: 2019-05-18
+--- a/src/Font.py
++++ b/src/Font.py
+@@ -186,7 +186,7 @@
+     glDisable(GL_TEXTURE_2D)
+ 
+   def _allocateGlyphTexture(self):
+-    t = TextureAtlas(size = glGetInteger(GL_MAX_TEXTURE_SIZE))
++    t = TextureAtlas(size = min(glGetInteger(GL_MAX_TEXTURE_SIZE), 2048))
+     t.texture.setFilter(GL_LINEAR, GL_LINEAR)
+     t.texture.setRepeat(GL_CLAMP, GL_CLAMP)
+     self.glyphTextures.append(t)
