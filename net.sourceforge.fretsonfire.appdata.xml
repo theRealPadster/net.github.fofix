@@ -21,37 +21,6 @@
       <li>Multiplatform; runs on Windows™, Linux®, Mac OS X™ and FreeBSD®</li>
       <li>Open source, full Python source code available</li>
     </ul>
-    <p>Requirements:</p>
-    <ul>
-      <li>128 MB of RAM</li>
-      <li>A fairly fast OpenGL graphics card with decent drivers</li>
-      <li>SDL compatible sound card</li>
-    </ul>
-    <p>Credits:</p>
-    <p>
-      Frets on Fire was created as an entry to the
-      Assembly 2006 Game Development Competition by
-      Unreal Voodoo. It placed first in the competition.
-      The original team members are:
-    </p>
-    <ul>
-      <li>
-        Game Design, Programming
-        <ul><li>Sami Kyöstilä</li></ul>
-      </li>
-      <li>
-        Music, Sound Effects
-        <ul><li>Tommi Inkilä</li></ul>
-      </li>
-      <li>
-        Graphics
-        <ul>
-          <li>Joonas Kerttula</li>
-          <li>Jürgen</li>
-          <li>Mikko Korkiakoski</li>
-        </ul>
-      </li>
-    </ul>
   </description>
   <screenshots>
     <screenshot>
