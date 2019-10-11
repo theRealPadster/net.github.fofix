@@ -136,5 +136,5 @@ modules:
       - python2 -mcompileall /app/share/fretsonfire
       - install -Dm0755 -t /app/bin fretsonfire
       - install -Dm0644 data/icon.png /app/share/icons/hicolor/64x64/apps/net.sourceforge.fretsonfire.png
-      - install -Dm0644 -t /app/share/appdata net.sourceforge.fretsonfire.appdata.xml
+      - install -Dm0644 -t /app/share/metainfo net.sourceforge.fretsonfire.appdata.xml
       - install -Dm0644 -t /app/share/applications net.sourceforge.fretsonfire.desktop
