@@ -106,6 +106,46 @@ modules:
         commands:
           - cp /usr/share/gnu-config/config.{guess,sub} .
 
+  - name: imagemagick
+    config-opts:
+      - --disable-dependency-tracking
+      - --enable-static=no
+      - --disable-docs
+      - --without-magick-plus-plus
+      - --without-bzlib
+      - --with-x=no
+      - --without-zlib
+      - --without-zstd
+      - --without-dps
+      - --without-fftw
+      - --without-flif
+      - --without-fpx
+      - --without-djvu
+      - --without-fontconfig
+      - --without-freetype
+      - --without-raqm
+      - --with-gvc=no
+      - --without-heic
+      - --without-jbig
+      - --without-jpeg
+      - --without-lcms
+      - --without-openjp2
+      - --without-lqr
+      - --without-lzma
+      - --without-openexr
+      - --without-pango
+      - --without-raw
+      - --without-tiff
+      - --without-webp
+      - --with-wmf=no
+      - --without-xml
+    sources:
+      - type: archive
+        url: https://github.com/ImageMagick/ImageMagick/archive/7.0.10-9.tar.gz
+        sha256: ea08c7379b0ce40217656699e664d51a93eac819dde778f50ca457b110ffc5e3
+    cleanup:
+      - '*'
+
   - name: fretsonfire
     sources:
       - type: archive
@@ -142,6 +182,10 @@ modules:
         done
       - python2 -mcompileall /app/share/fretsonfire
       - install -Dm0755 -t /app/bin fretsonfire
-      - install -Dm0644 data/icon.png /app/share/icons/hicolor/64x64/apps/net.sourceforge.fretsonfire.png
+      - |
+        for _size in 16 32 48 64 128; do
+          convert +set date:create +set date:modify data/icon.png -resize ${_size}x${_size} icon_${_size}.png || exit 1
+          install -Dm0644 icon_${_size}.png /app/share/icons/hicolor/${_size}x${_size}/apps/net.sourceforge.fretsonfire.png || exit 1
+        done
       - install -Dm0644 -t /app/share/metainfo net.sourceforge.fretsonfire.appdata.xml
       - install -Dm0644 -t /app/share/applications net.sourceforge.fretsonfire.desktop
