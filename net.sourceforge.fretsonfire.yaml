@@ -10,6 +10,13 @@ finish-args:
   - --device=all
   - --persist=.fretsonfire
 cleanup:
+  - '*.a'
+  - '*.la'
+  - /include
+  - /lib/cmake
+  - /lib/pkgconfig
+  - /share/doc
+  - /share/man
   - /lib/python3.*
 modules:
   - shared-modules/python2.7/python-2.7.json
