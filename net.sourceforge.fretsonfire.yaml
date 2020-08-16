@@ -32,7 +32,7 @@ modules:
         sha256: e5cf3fdf13401885e8eea8170624ec96225e2174eb0c611c6f26dd33b489e3ff
     buildsystem: simple
     build-commands:
-      - pip2 install . --prefix=/app --no-index --find-links .
+      - pip2 install --prefix=/app .
 
   - name: python2-pygame
     sources:
@@ -41,7 +41,7 @@ modules:
         sha256: 301c6428c0880ecd4a9e3951b80e539c33863b6ff356a443db1758de4f297957
     buildsystem: simple
     build-commands:
-      - pip2 install --ignore-installed --no-deps --prefix=/app .
+      - pip2 install --prefix=/app .
     build-options:
       env:
         PORTMIDI_INC_PORTTIME: '1'
@@ -67,7 +67,7 @@ modules:
         sha256: 4107ba0d0390da5766a08c242cf0cf3404c377ed293c5f6d701e457c57ba3424
     buildsystem: simple
     build-commands:
-      - pip2 install . --prefix=/app --no-index --find-links .
+      - pip2 install --prefix=/app .
 
   - name: pyopengl-accelerate
     sources:
@@ -76,7 +76,7 @@ modules:
         sha256: 12e5518b0216a478527c7ce5ddce623c3d0517adeb87226da767772e8b7f2f06
     buildsystem: simple
     build-commands:
-      - pip2 install . --prefix=/app --no-index --find-links .
+      - pip2 install --prefix=/app .
 
   - name: pillow
     sources:
@@ -85,7 +85,7 @@ modules:
         sha256: db9ff0c251ed066d367f53b64827cc9e18ccea001b986d08c265e53625dab950
     buildsystem: simple
     build-commands:
-      - pip2 install . --prefix=/app --no-index --find-links .
+      - pip2 install --prefix=/app .
     build-options:
       arch:
         aarch64:
