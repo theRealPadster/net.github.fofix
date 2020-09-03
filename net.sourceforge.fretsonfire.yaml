@@ -1,6 +1,6 @@
 app-id: net.sourceforge.fretsonfire
 runtime: org.freedesktop.Platform
-runtime-version: '19.08'
+runtime-version: '20.08'
 sdk: org.freedesktop.Sdk
 command: fretsonfire
 finish-args:
@@ -141,8 +141,8 @@ modules:
       - --without-xml
     sources:
       - type: archive
-        url: https://github.com/ImageMagick/ImageMagick/archive/7.0.10-9.tar.gz
-        sha256: ea08c7379b0ce40217656699e664d51a93eac819dde778f50ca457b110ffc5e3
+        url: https://github.com/ImageMagick/ImageMagick/archive/7.0.10-28.tar.gz
+        sha256: 9f2b8b131222354b196c640fca4e53eb0bbf62246621b9d467f223366272d7a7
     cleanup:
       - '*'
 
