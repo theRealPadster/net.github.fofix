@@ -164,7 +164,7 @@ modules:
       - type: patch
         path: fix_hardcoded_python_path.patch
       - type: file
-        path: net.sourceforge.fretsonfire.appdata.xml
+        path: net.sourceforge.fretsonfire.metainfo.xml
       - type: file
         path: net.sourceforge.fretsonfire.desktop
       - type: script
@@ -185,5 +185,5 @@ modules:
           convert +set date:create +set date:modify data/icon.png -resize ${_size}x${_size} icon_${_size}.png || exit 1
           install -Dm0644 icon_${_size}.png /app/share/icons/hicolor/${_size}x${_size}/apps/net.sourceforge.fretsonfire.png || exit 1
         done
-      - install -Dm0644 -t /app/share/metainfo net.sourceforge.fretsonfire.appdata.xml
+      - install -Dm0644 -t /app/share/metainfo net.sourceforge.fretsonfire.metainfo.xml
       - install -Dm0644 -t /app/share/applications net.sourceforge.fretsonfire.desktop
