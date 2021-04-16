@@ -143,44 +143,54 @@ modules:
     cleanup:
       - '*'
 
-  - name: fretsonfire
+  - name: fofix
     sources:
       - type: archive
-        url: https://sourceforge.net/projects/fretsonfire/files/fretsonfire/1.3.110/FretsOnFire-1.3.110.tar.gz
-        sha256: c8cca75a897a8c4cadac06f92fd85b417ac41fc19fc719e89ddcd91a3c29f9da
+        # url: https://sourceforge.net/projects/fretsonfire/files/fretsonfire/1.3.110/FretsOnFire-1.3.110.tar.gz
+        # sha256: c8cca75a897a8c4cadac06f92fd85b417ac41fc19fc719e89ddcd91a3c29f9da
+        url: https://github.com/fofix/fofix/archive/refs/tags/v3.122.tar.gz
+        sha256: 80e81993e6c569b3dd2f61176c23b4d1c2d88ac540829128a89a73a0b51c4be2
+      # - type: patch
+      #   path: fix_font_rendering.patch
+      # - type: patch
+      #   path: pillow-compatibility.patch
+      # - type: patch
+      #   path: fix_hang_when_closing.patch
+      # - type: patch
+      #   path: hide_upload_highscores_setting.patch
+      # - type: patch
+      #   path: fix_crash_when_applying_settings.patch
+      # - type: patch
+      #   path: fix_hardcoded_python_path.patch
       - type: patch
-        path: fix_font_rendering.patch
-      - type: patch
-        path: pillow-compatibility.patch
-      - type: patch
-        path: fix_hang_when_closing.patch
-      - type: patch
-        path: hide_upload_highscores_setting.patch
-      - type: patch
-        path: fix_crash_when_applying_settings.patch
-      - type: patch
-        path: fix_hardcoded_python_path.patch
+        path: fix_audio_indentation.patch
       - type: file
-        path: net.sourceforge.fretsonfire.metainfo.xml
+        path: net.github.fofix.metainfo.xml
       - type: file
-        path: net.sourceforge.fretsonfire.desktop
+        path: net.github.fofix.desktop
+      - type: file
+        path: MANIFEST
       - type: script
-        dest-filename: fretsonfire
+        dest-filename: fofix
         commands:
-          - cd /app/share/fretsonfire/src
-          - exec python2 FretsOnFire.py "$@"
+          - cd /app/share/fofix/src
+          - exec python2 ./FoFiX.py
     buildsystem: simple
     build-commands:
       - |
+        # for f in $(cat MANIFEST); do
+        #     install -Dm0644 -t "/app/share/fofix/$(dirname "$f")" "$f"
+        # done
+        mkdir /app/share/fofix
         for f in $(cat MANIFEST); do
-            install -Dm0644 -t "/app/share/fretsonfire/$(dirname "$f")" "$f"
+            cp -r $f "/app/share/fofix/$f"
         done
-      - python2 -mcompileall /app/share/fretsonfire
-      - install -Dm0755 -t /app/bin fretsonfire
+      - python2 -mcompileall /app/share/fofix
+      - install -Dm0755 -t /app/bin fofix
       - |
         for _size in 16 32 48 64 128; do
-          convert +set date:create +set date:modify data/icon.png -resize ${_size}x${_size} icon_${_size}.png || exit 1
-          install -Dm0644 icon_${_size}.png /app/share/icons/hicolor/${_size}x${_size}/apps/net.sourceforge.fretsonfire.png || exit 1
+          convert +set date:create +set date:modify data/fofix_icon.png -resize ${_size}x${_size} icon_${_size}.png || exit 1
+          install -Dm0644 icon_${_size}.png /app/share/icons/hicolor/${_size}x${_size}/apps/net.github.fofix.png || exit 1
         done
-      - install -Dm0644 -t /app/share/metainfo net.sourceforge.fretsonfire.metainfo.xml
-      - install -Dm0644 -t /app/share/applications net.sourceforge.fretsonfire.desktop
+      - install -Dm0644 -t /app/share/metainfo net.github.fofix.metainfo.xml
+      - install -Dm0644 -t /app/share/applications net.github.fofix.desktop

@@ -1,0 +1,14 @@
+Author: Isaac Maier <padspambox@gmail.com>
+Description: Fix indentation error
+Last-Update: 2020-04-15
+--- a/src/Audio.py
++++ b/src/Audio.py
+@@ -222,7 +222,7 @@
+
+ import numpy
+ def zeros(size):
+-return numpy.zeros(size, dtype='h')
++  return numpy.zeros(size, dtype='h')
+
+ #stump: mic passthrough
+ class MicrophonePassthroughStream(Sound, Task):
