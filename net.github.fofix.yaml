@@ -1,0 +1,186 @@
+app-id: net.github.fofix
+runtime: org.freedesktop.Platform
+runtime-version: '20.08'
+sdk: org.freedesktop.Sdk
+command: fofix
+finish-args:
+  - --socket=x11
+  - --share=ipc
+  - --socket=pulseaudio
+  - --device=all
+  - --persist=.fofix
+cleanup:
+  - '*.a'
+  - '*.la'
+  - /include
+  - /lib/cmake
+  - /lib/pkgconfig
+  - /share/doc
+  - /share/man
+  - /lib/python3.*
+modules:
+  - shared-modules/python2.7/python-2.7.json
+
+  - shared-modules/glu/glu-9.json
+
+  - shared-modules/pygame/pygame-1.9.4.json
+
+  - name: numpy
+    sources:
+      - type: archive
+        url: https://files.pythonhosted.org/packages/b7/6f/24647f014eef9b67a24adfcbcd4f4928349b4a0f8393b3d7fe648d4d2de3/numpy-1.16.6.zip
+        sha256: e5cf3fdf13401885e8eea8170624ec96225e2174eb0c611c6f26dd33b489e3ff
+    buildsystem: simple
+    build-commands:
+      - pip2 install --prefix=/app .
+
+  - name: python2-pygame
+    sources:
+      - type: archive
+        url: https://files.pythonhosted.org/packages/0f/9c/78626be04e193c0624842090fe5555b3805c050dfaa81c8094d6441db2be/pygame-1.9.6.tar.gz
+        sha256: 301c6428c0880ecd4a9e3951b80e539c33863b6ff356a443db1758de4f297957
+    buildsystem: simple
+    build-commands:
+      - pip2 install --prefix=/app .
+    build-options:
+      env:
+        PORTMIDI_INC_PORTTIME: '1'
+        PYGAME_EXTRA_BASE: /app
+      arch:
+        aarch64:
+          env:
+            ORIGLIBDIRS: /lib:/lib64:/lib/aarch64-linux-gnu
+        arm:
+          env:
+            ORIGLIBDIRS: /lib:/lib/arm-linux-gnueabihf
+        i386:
+          env:
+            ORIGLIBDIRS: /lib:/lib/i386-linux-gnu
+        x86_64:
+          env:
+            ORIGLIBDIRS: /lib:/lib64:/lib/x86_64-linux-gnu
+
+  - name: pyopengl
+    sources:
+      - type: archive
+        url: https://files.pythonhosted.org/packages/b8/73/31c8177f3d236e9a5424f7267659c70ccea604dab0585bfcd55828397746/PyOpenGL-3.1.5.tar.gz
+        sha256: 4107ba0d0390da5766a08c242cf0cf3404c377ed293c5f6d701e457c57ba3424
+    buildsystem: simple
+    build-commands:
+      - pip2 install --prefix=/app .
+
+  - name: pyopengl-accelerate
+    sources:
+      - type: archive
+        url: https://files.pythonhosted.org/packages/a2/3c/f42a62b7784c04b20f8b88d6c8ad04f4f20b0767b721102418aad94d8389/PyOpenGL-accelerate-3.1.5.tar.gz
+        sha256: 12e5518b0216a478527c7ce5ddce623c3d0517adeb87226da767772e8b7f2f06
+    buildsystem: simple
+    build-commands:
+      - pip2 install --prefix=/app .
+
+  - name: pillow
+    sources:
+      - type: archive
+        url: https://files.pythonhosted.org/packages/b3/d0/a20d8440b71adfbf133452d4f6e0fe80de2df7c2578c9b498fb812083383/Pillow-6.2.2.tar.gz
+        sha256: db9ff0c251ed066d367f53b64827cc9e18ccea001b986d08c265e53625dab950
+    buildsystem: simple
+    build-commands:
+      - pip2 install --prefix=/app .
+    build-options:
+      arch:
+        aarch64:
+          ldflags: -L/usr/lib/aarch64-linux-gnu
+        arm:
+          ldflags: -L/usr/lib/arm-linux-gnueabihf
+        i386:
+          ldflags: -L/usr/lib/i386-linux-gnu
+        x86_64:
+          ldflags: -L/usr/lib/x86_64-linux-gnu
+
+  - name: vorbis-tools
+    sources:
+      - type: archive
+        url: https://downloads.xiph.org/releases/vorbis/vorbis-tools-1.4.2.tar.gz
+        sha256: db7774ec2bf2c939b139452183669be84fda5774d6400fc57fde37f77624f0b0
+
+  - name: imagemagick
+    config-opts:
+      - --disable-dependency-tracking
+      - --enable-static=no
+      - --disable-docs
+      - --without-magick-plus-plus
+      - --without-bzlib
+      - --with-x=no
+      - --without-zlib
+      - --without-zstd
+      - --without-dps
+      - --without-fftw
+      - --without-flif
+      - --without-fpx
+      - --without-djvu
+      - --without-fontconfig
+      - --without-freetype
+      - --without-raqm
+      - --with-gvc=no
+      - --without-heic
+      - --without-jbig
+      - --without-jpeg
+      - --without-lcms
+      - --without-openjp2
+      - --without-lqr
+      - --without-lzma
+      - --without-openexr
+      - --without-pango
+      - --without-raw
+      - --without-tiff
+      - --without-webp
+      - --with-wmf=no
+      - --without-xml
+    sources:
+      - type: archive
+        url: https://github.com/ImageMagick/ImageMagick/archive/7.0.11-6.tar.gz
+        sha256: 8adc1605784653b078572b825e8cd1d3d54f8a1b4ba86b32ca253c038f7e4c37
+    cleanup:
+      - '*'
+
+  - name: fretsonfire
+    sources:
+      - type: archive
+        url: https://sourceforge.net/projects/fretsonfire/files/fretsonfire/1.3.110/FretsOnFire-1.3.110.tar.gz
+        sha256: c8cca75a897a8c4cadac06f92fd85b417ac41fc19fc719e89ddcd91a3c29f9da
+      - type: patch
+        path: fix_font_rendering.patch
+      - type: patch
+        path: pillow-compatibility.patch
+      - type: patch
+        path: fix_hang_when_closing.patch
+      - type: patch
+        path: hide_upload_highscores_setting.patch
+      - type: patch
+        path: fix_crash_when_applying_settings.patch
+      - type: patch
+        path: fix_hardcoded_python_path.patch
+      - type: file
+        path: net.sourceforge.fretsonfire.metainfo.xml
+      - type: file
+        path: net.sourceforge.fretsonfire.desktop
+      - type: script
+        dest-filename: fretsonfire
+        commands:
+          - cd /app/share/fretsonfire/src
+          - exec python2 FretsOnFire.py "$@"
+    buildsystem: simple
+    build-commands:
+      - |
+        for f in $(cat MANIFEST); do
+            install -Dm0644 -t "/app/share/fretsonfire/$(dirname "$f")" "$f"
+        done
+      - python2 -mcompileall /app/share/fretsonfire
+      - install -Dm0755 -t /app/bin fretsonfire
+      - |
+        for _size in 16 32 48 64 128; do
+          convert +set date:create +set date:modify data/icon.png -resize ${_size}x${_size} icon_${_size}.png || exit 1
+          install -Dm0644 icon_${_size}.png /app/share/icons/hicolor/${_size}x${_size}/apps/net.sourceforge.fretsonfire.png || exit 1
+        done
+      - install -Dm0644 -t /app/share/metainfo net.sourceforge.fretsonfire.metainfo.xml
+      - install -Dm0644 -t /app/share/applications net.sourceforge.fretsonfire.desktop

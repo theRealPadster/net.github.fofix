@@ -1,0 +1,56 @@
+<!-- TODO: update description, screenshots, etc -->
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>net.github.fofix</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0-or-later</project_license>
+  <name>FoFiX</name>
+  <summary>Frets on Fire X: a fork of Frets on Fire with many added features and capabilities</summary>
+  <description>
+    <p>
+      This is Frets on Fire X, a highly customizable rhythm game supporting many modes of guitar, bass, drum, and vocal gameplay for up to four players. It is the continuation of a long succession of modifications to the original Frets on Fire by Unreal Voodoo.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Unique inverted keyboard gameplay style</li>
+      <li>Support for guitar controllers and generic joysticks</li>
+      <li>Includes a song editor for making your own tunes</li>
+      <li>Compete with others on the World Charts</li>
+      <li>Hundreds of songs composed by the community</li>
+      <li>Supports importing Guitar Hero™ I and Guitar Hero™ II songs</li>
+      <li>Multiplatform; runs on Windows™, Linux®, Mac OS X™ and FreeBSD®</li>
+      <li>Open source, full Python source code available</li>
+    </ul>
+  </description>
+  <screenshots>
+    <screenshot>
+      <image type="source" width="640" height="480">http://fretsonfire.sourceforge.net/screenshots/fretsonfire1.png</image>
+    </screenshot>
+    <screenshot>
+      <image type="source" width="640" height="480">http://fretsonfire.sourceforge.net/screenshots/fretsonfire2.png</image>
+    </screenshot>
+    <screenshot>
+      <image type="source" width="640" height="480">http://fretsonfire.sourceforge.net/screenshots/fretsonfire3.png</image>
+    </screenshot>
+    <screenshot type="default">
+      <image type="source" width="640" height="480">http://fretsonfire.sourceforge.net/screenshots/fretsonfire4.png</image>
+    </screenshot>
+    <screenshot>
+      <image type="source" width="640" height="480">http://fretsonfire.sourceforge.net/screenshots/fretsonfire5.png</image>
+    </screenshot>
+    <screenshot>
+      <image type="source" width="640" height="480">http://fretsonfire.sourceforge.net/screenshots/fretsonfire6.png</image>
+    </screenshot>
+    <screenshot>
+      <image type="source" width="640" height="480">http://fretsonfire.sourceforge.net/screenshots/fretsonfire7.png</image>
+    </screenshot>
+  </screenshots>
+  <launchable type="desktop-id">net.github.fofix.desktop</launchable>
+  <url type="homepage">https://fofix.github.io/</url>
+  <releases>
+    <release version="3.122" date="2019-11-28" />
+  </releases>
+  <content_rating type="oars-1.1">
+    <content_attribute id="language-profanity">mild</content_attribute>
+  </content_rating>
+</component>
