@@ -1,6 +1,6 @@
 app-id: net.sourceforge.fretsonfire
 runtime: org.freedesktop.Platform
-runtime-version: '20.08'
+runtime-version: '21.08'
 sdk: org.freedesktop.Sdk
 command: fretsonfire
 finish-args:
@@ -17,13 +17,10 @@ cleanup:
   - /lib/pkgconfig
   - /share/doc
   - /share/man
-  - /lib/python3.*
 modules:
   - shared-modules/python2.7/python-2.7.json
 
   - shared-modules/glu/glu-9.json
-
-  - shared-modules/pygame/pygame-1.9.4.json
 
   - name: numpy
     sources:
@@ -34,7 +31,8 @@ modules:
     build-commands:
       - pip2 install --prefix=/app .
 
-  - name: python2-pygame
+  - name: pygame
+    # Mostly copied from shared-modules/pygame/pygame-1.9.6.json
     sources:
       - type: archive
         url: https://files.pythonhosted.org/packages/0f/9c/78626be04e193c0624842090fe5555b3805c050dfaa81c8094d6441db2be/pygame-1.9.6.tar.gz
@@ -59,6 +57,47 @@ modules:
         x86_64:
           env:
             ORIGLIBDIRS: /lib:/lib64:/lib/x86_64-linux-gnu
+    modules:
+      - shared-modules/SDL/SDL-1.2.15.json
+      - shared-modules/SDL/SDL_image-1.2.12.json
+      - shared-modules/SDL/SDL_ttf-2.0.11.json
+      - shared-modules/smpeg/smpeg-0.4.5.json
+      - shared-modules/SDL/SDL_mixer-1.2.12.json
+      - name: audiofile
+        sources:
+          - type: archive
+            url: http://audiofile.68k.org/audiofile-0.3.6.tar.gz
+            sha256: cdc60df19ab08bfe55344395739bb08f50fc15c92da3962fac334d3bff116965
+          - type: patch
+            path: shared-modules/pygame/audiofile-gcc6.patch
+      - name: libmikmod
+        sources:
+          - type: archive
+            url: https://sourceforge.net/projects/mikmod/files/libmikmod/3.3.11.1/libmikmod-3.3.11.1.tar.gz
+            sha256: ad9d64dfc8f83684876419ea7cd4ff4a41d8bcd8c23ef37ecb3a200a16b46d19
+      - name: fluidsynth
+        buildsystem: cmake-ninja
+        config-opts:
+          - -DCMAKE_BUILD_TYPE=Release
+        sources:
+          - type: archive
+            url: https://github.com/FluidSynth/fluidsynth/archive/refs/tags/v1.1.11.tar.gz
+            sha256: da8878ff374d12392eecf87e96bad8711b8e76a154c25a571dd8614d1af80de8
+          - type: patch
+            path: shared-modules/pygame/fluidsynth-no-rawmidi.patch
+      - name: portmidi
+        buildsystem: cmake-ninja
+        config-opts:
+          - -DCMAKE_BUILD_TYPE=Release
+          - -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:STRING=/app/lib
+          - -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY:STRING=/app/lib
+          - -DCMAKE_RUNTIME_OUTPUT_DIRECTORY:STRING=/app/bin
+        sources:
+          - type: archive
+            url: http://downloads.sourceforge.net/project/portmedia/portmidi/217/portmidi-src-217.zip
+            sha256: 08e9a892bd80bdb1115213fb72dc29a7bf2ff108b378180586aa65f3cfd42e0f
+          - type: patch
+            path: shared-modules/pygame/portmidi-no-java.patch
 
   - name: pyopengl
     sources:
@@ -138,8 +177,8 @@ modules:
       - --without-xml
     sources:
       - type: archive
-        url: https://github.com/ImageMagick/ImageMagick/archive/7.0.11-6.tar.gz
-        sha256: 8adc1605784653b078572b825e8cd1d3d54f8a1b4ba86b32ca253c038f7e4c37
+        url: https://github.com/ImageMagick/ImageMagick/archive/7.1.0-6.tar.gz
+        sha256: 0e925a1e6192bf2908bfcf1a99eec271f36844663ab3b6d2690cdaaa11b928c7
     cleanup:
       - '*'
 
@@ -178,9 +217,9 @@ modules:
       - python2 -mcompileall /app/share/fretsonfire
       - install -Dm0755 -t /app/bin fretsonfire
       - |
-        for _size in 16 32 48 64 128; do
-          convert +set date:create +set date:modify data/icon.png -resize ${_size}x${_size} icon_${_size}.png || exit 1
-          install -Dm0644 icon_${_size}.png /app/share/icons/hicolor/${_size}x${_size}/apps/net.sourceforge.fretsonfire.png || exit 1
+        for res in 16 32 48 64 128; do
+          convert +set date:create +set date:modify data/icon.png -resize ${res}x${res} icon_${res}.png || exit 1
+          install -Dm0644 icon_${res}.png /app/share/icons/hicolor/${res}x${res}/apps/net.sourceforge.fretsonfire.png || exit 1
         done
       - install -Dm0644 -t /app/share/metainfo net.sourceforge.fretsonfire.metainfo.xml
       - install -Dm0644 -t /app/share/applications net.sourceforge.fretsonfire.desktop
